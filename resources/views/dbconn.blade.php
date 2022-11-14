@@ -14,5 +14,5 @@
             }
         ?>
     </section>
-</body>a
+</body>
 </html>

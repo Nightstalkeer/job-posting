@@ -18,6 +18,8 @@ use App\Models\Listing;
 |
 */
 
+
+//All Listings
 Route::get('/', function () {
     return view('listings', [
         'heading' => 'Lastest Listing',
@@ -25,9 +27,10 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('/listings/{id}', function($id) {
+//Single Listing
+Route::get('/listings/{listing}', function(Listing $listing) {
     return view('listing', [
-        'listing' => Listing::find($id)
+        'listing' => $listing // this approach will automatically detect that the item has exist or not
     ]);
 });
 
