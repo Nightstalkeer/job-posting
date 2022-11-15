@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ListingController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -19,25 +20,6 @@ use App\Models\Listing;
 */
 
 
-//All Listings
-Route::get('/', function () {
-    return view('listings', [
-        'heading' => 'Lastest Listing',
-        'listings' => Listing::all()
-    ]);
-});
-
-//Single Listing
-Route::get('/listings/{listing}', function(Listing $listing) {
-    return view('listing', [
-        'listing' => $listing // this approach will automatically detect that the item has exist or not
-    ]);
-});
-
-Route::get('/dbconn', function() {
-    return view('dbconn');
-});
-
 // Route::get('/hello', function() {
 //     return response('<h1>Hello World<h1>', 200)
 //         ->header('Content-Type', 'text/plain')
@@ -56,3 +38,29 @@ Route::get('/dbconn', function() {
 // Route::get('/search', function(Request $request) {
 //     return ($request->name.' '.$request->city);
 // });
+
+
+// Common Resources Routes:
+// index - Show all listings
+// show - Show single listings
+// create - Show form to create new listing
+// store - Store new listing
+// edit - Show form to edit listing
+// update - Update listing
+// destroy - Delete listing
+
+
+
+
+//All Listings
+Route::get('/', [ListingController::class, 'index']); //controller class used here
+
+//Single Listing
+Route::get('/listings/{listing}', [ListingController::class, 'show']); //controller class used here
+
+// Show that the database is connected or not
+Route::get('/dbconn', function() {
+    return view('dbconn');
+});
+
+
