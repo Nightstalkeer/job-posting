@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Listing;
-use Barryvdh\Reflection\DocBlock\Tag;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Session;
 
 class ListingController extends Controller
 {
@@ -13,7 +14,7 @@ class ListingController extends Controller
         // dd(request('tag'));
         return view('listings.index', [
             // 'heading' => 'Lastest Listing',
-            'listings' => Listing::latest()->filter(request(['tag', 'search']))->get()
+            'listings' => Listing::latest()->filter(request(['tag', 'search']))->simplePaginate(4) // paginate or simplePaginate used for multiple pages
         ]);
     }
 
@@ -27,5 +28,31 @@ class ListingController extends Controller
     // show create form
     public function create() {
         return view('listings.create');
+    }
+
+    // Store Listing data
+    public function store(Request $request) {
+        // dd($request->file('logo'));
+        $formFields = $request->validate([
+            'title' => 'required',
+            'company' => ['required', Rule::unique('listings', 'company')],
+            'location' => 'required',
+            'website' => 'required',
+            'email' => ['required', 'email'],
+            'tags' => 'required',
+            'description' => 'required'
+        ]);
+
+        if($request->hasFile('logo')) {
+            $formFields['logo'] = $request->file('logo')->store('logos', 'public');
+        }
+        
+        Listing::create($formFields);
+        
+        // This is another way to show flash message...
+        // Session::flash('message', 'Listing Created');
+
+        
+        return redirect('/')->with('message', 'Listing created successfully!');
     }
 }

@@ -9,6 +9,12 @@ class Listing extends Model
 {
     use HasFactory;
 
+
+    // There is no need to do this fillable when we unguard Model inside the APPSERVICEProvider files boot function.
+    // protected $fillable = ['title', 'company', 'location', 'website', 'email', 'description', 'tags'];
+
+
+
     public function scopeFilter($query, array $filters) {
         // dd($filters['tag']);
         if ($filters['tag'] ?? false) {
