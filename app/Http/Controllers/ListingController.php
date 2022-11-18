@@ -13,7 +13,7 @@ class ListingController extends Controller
         // dd(request('tag'));
         return view('listings.index', [
             // 'heading' => 'Lastest Listing',
-            'listings' => Listing::latest()->filter(request(['tag']))->get()
+            'listings' => Listing::latest()->filter(request(['tag', 'search']))->get()
         ]);
     }
 
@@ -22,5 +22,10 @@ class ListingController extends Controller
         return view('listings.show', [
             'listing' => $listing // this approach will automatically detect that the item has exist or not
         ]);
+    }
+
+    // show create form
+    public function create() {
+        return view('listings.create');
     }
 }

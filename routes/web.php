@@ -55,6 +55,9 @@ use App\Models\Listing;
 //All Listings
 Route::get('/', [ListingController::class, 'index']); //controller class used here
 
+// Show create form
+Route::get('/listings/create', [ListingController::class, 'create']);
+
 //Single Listing
 Route::get('/listings/{listing}', [ListingController::class, 'show']); //controller class used here
 
@@ -62,5 +65,4 @@ Route::get('/listings/{listing}', [ListingController::class, 'show']); //control
 Route::get('/dbconn', function() {
     return view('dbconn');
 });
-
 
