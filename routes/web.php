@@ -1,11 +1,12 @@
 <?php
 
-use App\Http\Controllers\ListingController;
+use App\Models\Listing;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 // Importing model here through namespace
-use App\Models\Listing;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\ListingController;
 
 
 /*
@@ -79,3 +80,11 @@ Route::get('/dbconn', function() {
     return view('dbconn');
 });
 
+// Show Register/Create Form
+Route::get('/register', [UserController::class, 'create']);
+
+// Create New User
+Route::post('/users', [UserController::class, 'store']);
+
+// Log User Out
+Route::post('/logout', [UserController::class, 'logout']);
