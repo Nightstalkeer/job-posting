@@ -41,4 +41,9 @@ use HasApiTokens, HasFactory, Notifiable;
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    // Relationship with Listings
+    public function listings() {
+        return $this->hasMany(Listing::class, 'user_id');
+    }
 }

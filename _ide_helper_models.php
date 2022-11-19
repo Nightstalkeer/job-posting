@@ -15,15 +15,18 @@ namespace App\Models{
  * App\Models\Listing
  *
  * @property int $id
+ * @property int $user_id
  * @property string $title
  * @property string $tags
  * @property string $company
  * @property string $location
  * @property string $email
  * @property string $website
+ * @property string|null $logo
  * @property string $description
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\User $user
  * @method static \Database\Factories\ListingFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|Listing filter(array $filters)
  * @method static \Illuminate\Database\Eloquent\Builder|Listing newModelQuery()
@@ -35,9 +38,11 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Listing whereEmail($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Listing whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Listing whereLocation($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Listing whereLogo($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Listing whereTags($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Listing whereTitle($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Listing whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Listing whereUserId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Listing whereWebsite($value)
  */
 	class Listing extends \Eloquent {}
@@ -55,6 +60,8 @@ namespace App\Models{
  * @property string|null $remember_token
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Listing[] $listings
+ * @property-read int|null $listings_count
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
  * @property-read int|null $notifications_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\Laravel\Sanctum\PersonalAccessToken[] $tokens
